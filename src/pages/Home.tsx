@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Sparkles, Wrench, BarChart3, Brain, ArrowRight, Zap } from "lucide-react";
+import { Sparkles, Wrench, BarChart3, Brain, ArrowRight, Zap, Server } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContentCard from "@/components/ContentCard";
@@ -9,7 +9,8 @@ import CategoryFilter from "@/components/CategoryFilter";
 import { useContents, type ContentCategory } from "@/hooks/useContents";
 
 const categoryCards = [
-  { to: "/prompts", icon: Sparkles, label: "Prompts", desc: "Prontos para copiar e usar", count: "3+" },
+  { to: "/mcps", icon: Server, label: "MCPs", desc: "Diretório de servidores MCP", count: "18+" },
+  { to: "/prompts", icon: Sparkles, label: "Prompts", desc: "Prontos para copiar e usar", count: "13+" },
   { to: "/ferramentas", icon: Wrench, label: "Ferramentas", desc: "Curadoria das melhores", count: "3+" },
   { to: "/analises", icon: BarChart3, label: "Análises", desc: "Tendências e comparativos", count: "2+" },
   { to: "/pensamentos", icon: Brain, label: "Pensamentos", desc: "Reflexões sobre IA", count: "2+" },
@@ -57,7 +58,7 @@ const Home = () => {
 
         {/* Category Cards */}
         <section className="px-6 md:px-12 pb-16">
-          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
             {categoryCards.map((cat, i) => (
               <motion.div
                 key={cat.to}
