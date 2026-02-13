@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CategoryPage from "./pages/CategoryPage";
 import ContentDetail from "./pages/ContentDetail";
+import McpDirectory from "./pages/McpDirectory";
+import McpDetail from "./pages/McpDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -18,6 +20,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/mcps" element={<McpDirectory />} />
+          <Route path="/mcps/:slug" element={<McpDetail />} />
           <Route path="/prompts" element={<CategoryPage />} />
           <Route path="/ferramentas" element={<CategoryPage />} />
           <Route path="/analises" element={<CategoryPage />} />

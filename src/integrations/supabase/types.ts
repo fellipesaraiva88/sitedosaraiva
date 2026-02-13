@@ -53,6 +53,75 @@ export type Database = {
         }
         Relationships: []
       }
+      mcp_servers: {
+        Row: {
+          author: string | null
+          category: Database["public"]["Enums"]["mcp_category"]
+          created_at: string
+          deploy_type: Database["public"]["Enums"]["mcp_deploy_type"]
+          description: string | null
+          featured: boolean | null
+          github_url: string | null
+          icon_url: string | null
+          id: string
+          install_command: string | null
+          long_description: string | null
+          name: string
+          published: boolean | null
+          slug: string
+          tags: string[] | null
+          tools: string[] | null
+          updated_at: string
+          usage_count: number | null
+          verified: boolean | null
+          website_url: string | null
+        }
+        Insert: {
+          author?: string | null
+          category?: Database["public"]["Enums"]["mcp_category"]
+          created_at?: string
+          deploy_type?: Database["public"]["Enums"]["mcp_deploy_type"]
+          description?: string | null
+          featured?: boolean | null
+          github_url?: string | null
+          icon_url?: string | null
+          id?: string
+          install_command?: string | null
+          long_description?: string | null
+          name: string
+          published?: boolean | null
+          slug: string
+          tags?: string[] | null
+          tools?: string[] | null
+          updated_at?: string
+          usage_count?: number | null
+          verified?: boolean | null
+          website_url?: string | null
+        }
+        Update: {
+          author?: string | null
+          category?: Database["public"]["Enums"]["mcp_category"]
+          created_at?: string
+          deploy_type?: Database["public"]["Enums"]["mcp_deploy_type"]
+          description?: string | null
+          featured?: boolean | null
+          github_url?: string | null
+          icon_url?: string | null
+          id?: string
+          install_command?: string | null
+          long_description?: string | null
+          name?: string
+          published?: boolean | null
+          slug?: string
+          tags?: string[] | null
+          tools?: string[] | null
+          updated_at?: string
+          usage_count?: number | null
+          verified?: boolean | null
+          website_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -62,6 +131,18 @@ export type Database = {
     }
     Enums: {
       content_category: "prompt" | "tool" | "analysis" | "thought"
+      mcp_category:
+        | "search"
+        | "productivity"
+        | "development"
+        | "communication"
+        | "data"
+        | "design"
+        | "ai"
+        | "storage"
+        | "automation"
+        | "other"
+      mcp_deploy_type: "remote" | "local" | "both"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -190,6 +271,19 @@ export const Constants = {
   public: {
     Enums: {
       content_category: ["prompt", "tool", "analysis", "thought"],
+      mcp_category: [
+        "search",
+        "productivity",
+        "development",
+        "communication",
+        "data",
+        "design",
+        "ai",
+        "storage",
+        "automation",
+        "other",
+      ],
+      mcp_deploy_type: ["remote", "local", "both"],
     },
   },
 } as const
