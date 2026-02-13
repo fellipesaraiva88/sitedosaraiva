@@ -2,50 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @layer base {
   :root {
-    /* Maya Chen Portfolio - Light Editorial Theme */
-    --background: 40 10% 96%;
-    --foreground: 0 0% 8%;
+    /* Saraiva.ai — Dark Futuristic Theme */
+    --background: 220 20% 6%;
+    --foreground: 210 20% 95%;
 
-    --card: 40 10% 96%;
-    --card-foreground: 0 0% 8%;
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 95%;
 
-    --popover: 40 10% 96%;
-    --popover-foreground: 0 0% 8%;
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 0 0% 8%;
-    --primary-foreground: 40 10% 96%;
+    --primary: 165 80% 50%;
+    --primary-foreground: 220 20% 6%;
 
-    --secondary: 40 10% 90%;
-    --secondary-foreground: 0 0% 8%;
+    --secondary: 220 15% 14%;
+    --secondary-foreground: 210 20% 85%;
 
-    --muted: 40 10% 85%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 210 10% 55%;
 
-    --accent: 231 100% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 165 80% 50%;
+    --accent-foreground: 220 20% 6%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 85%;
-    --input: 0 0% 85%;
-    --ring: 231 100% 55%;
+    --border: 220 15% 16%;
+    --input: 220 15% 16%;
+    --ring: 165 80% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Custom Portfolio Colors */
-    --text-primary: 0 0% 8%;
-    --text-secondary: 0 0% 40%;
-    --text-muted: 0 0% 60%;
-    --text-tertiary: 0 0% 50%;
-    
-    --link-blue: 231 100% 55%;
-    --link-blue-hover: 231 100% 45%;
-    
-    --surface-hover: 40 10% 92%;
-    --surface-active: 40 10% 88%;
+    /* Custom Colors */
+    --glow-primary: 165 80% 50%;
+    --glow-secondary: 250 80% 65%;
+    --surface-hover: 220 15% 12%;
+    --surface-active: 220 15% 16%;
+    --gradient-start: 165 80% 50%;
+    --gradient-end: 250 80% 65%;
   }
 }
 
@@ -60,62 +58,74 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 }
 
 @layer components {
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px hsl(var(--glow-primary) / 0.3),
+                 0 0 80px hsl(var(--glow-primary) / 0.1);
+  }
+
+  .glow-border {
+    box-shadow: 0 0 0 1px hsl(var(--glow-primary) / 0.15),
+                0 0 20px hsl(var(--glow-primary) / 0.05);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-border {
+    border-image: linear-gradient(135deg, hsl(var(--gradient-start) / 0.4), hsl(var(--gradient-end) / 0.4)) 1;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    background: hsl(var(--surface-hover));
+    box-shadow: 0 0 0 1px hsl(var(--glow-primary) / 0.2),
+                0 4px 30px hsl(var(--glow-primary) / 0.06);
+    transform: translateY(-2px);
+  }
+
+  .nav-blur {
+    backdrop-filter: blur(24px) saturate(1.5);
+    background: hsl(var(--background) / 0.85);
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
   .section-header {
-    @apply text-sm font-medium mb-8 tracking-widest uppercase;
+    @apply text-xs font-medium mb-6 tracking-[0.2em] uppercase;
     color: hsl(var(--muted-foreground));
   }
 
   .body-text {
-    @apply text-lg leading-relaxed font-normal;
+    @apply text-base leading-relaxed font-normal;
     color: hsl(var(--muted-foreground));
-  }
-
-  .text-emphasis {
-    @apply font-semibold;
-    color: hsl(var(--foreground));
-  }
-
-  .text-accent-emphasis {
-    @apply font-bold italic;
-    color: hsl(var(--accent));
-  }
-
-  .external-link {
-    @apply font-medium underline transition-colors duration-200 inline-flex items-center gap-1;
-    color: hsl(var(--accent));
-    text-decoration-color: hsl(var(--accent) / 0.4);
-  }
-
-  .external-link:hover {
-    color: hsl(var(--link-blue-hover));
-  }
-
-  .experience-card {
-    @apply flex items-center gap-6 px-4 py-4 rounded-lg transition-all duration-200 cursor-pointer;
-  }
-
-  .experience-card:hover {
-    background: hsl(var(--surface-hover));
-  }
-
-  /* Hero stacked text style */
-  .hero-title {
-    font-family: 'Bebas Neue', 'Impact', sans-serif;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 0.85;
   }
 }
 
 @layer utilities {
-  .nav-blur {
-    backdrop-filter: blur(24px);
-    background: hsl(var(--background) / 0.8);
+  .text-balance {
+    text-wrap: balance;
   }
 }
