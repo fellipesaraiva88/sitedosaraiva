@@ -8,6 +8,8 @@ import CategoryPage from "./pages/CategoryPage";
 import ContentDetail from "./pages/ContentDetail";
 import McpDirectory from "./pages/McpDirectory";
 import McpDetail from "./pages/McpDetail";
+import TemplatesDirectory from "./pages/TemplatesDirectory";
+import TemplateDetail from "./pages/TemplateDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/mcps" element={<McpDirectory />} />
           <Route path="/mcps/:slug" element={<McpDetail />} />
+          <Route path="/templates" element={<TemplatesDirectory />} />
+          <Route path="/templates/:slug" element={<TemplateDetail />} />
           <Route path="/prompts" element={<CategoryPage />} />
           <Route path="/ferramentas" element={<CategoryPage />} />
           <Route path="/analises" element={<CategoryPage />} />
