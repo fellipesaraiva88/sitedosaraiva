@@ -22,10 +22,13 @@ export type Database = {
           description: string | null
           featured: boolean | null
           id: string
+          image_url: string | null
+          pricing: string | null
           published: boolean | null
           tags: string[] | null
           title: string
           updated_at: string
+          website_url: string | null
         }
         Insert: {
           body?: string | null
@@ -34,10 +37,13 @@ export type Database = {
           description?: string | null
           featured?: boolean | null
           id?: string
+          image_url?: string | null
+          pricing?: string | null
           published?: boolean | null
           tags?: string[] | null
           title: string
           updated_at?: string
+          website_url?: string | null
         }
         Update: {
           body?: string | null
@@ -46,10 +52,13 @@ export type Database = {
           description?: string | null
           featured?: boolean | null
           id?: string
+          image_url?: string | null
+          pricing?: string | null
           published?: boolean | null
           tags?: string[] | null
           title?: string
           updated_at?: string
+          website_url?: string | null
         }
         Relationships: []
       }
