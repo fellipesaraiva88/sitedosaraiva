@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContentCard from "@/components/ContentCard";
+import SubcategoryTabs from "@/components/SubcategoryTabs";
 import { useContents, type ContentCategory } from "@/hooks/useContents";
 import { Sparkles, Wrench, BarChart3, Brain } from "lucide-react";
 
@@ -37,7 +39,11 @@ const CategoryPage = () => {
   const location = useLocation();
   const slug = location.pathname.replace("/", "");
   const meta = categoryMeta[slug || ""];
-  const { data: contents, isLoading } = useContents(meta?.category);
+  const [activeTag, setActiveTag] = useState("all");
+  const { data: contents, isLoading } = useContents(
+    meta?.category,
+    activeTag === "all" ? undefined : activeTag
+  );
 
   if (!meta) {
     return (
@@ -62,7 +68,7 @@ const CategoryPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-12"
+            className="mb-8"
           >
             <div className="flex items-center gap-2 mb-4">
               <Icon className="w-5 h-5 text-primary" />
@@ -74,6 +80,20 @@ const CategoryPage = () => {
               {meta.title}
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">{meta.description}</p>
+          </motion.div>
+
+          {/* Subcategory Tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="mb-10"
+          >
+            <SubcategoryTabs
+              category={meta.category}
+              active={activeTag}
+              onChange={setActiveTag}
+            />
           </motion.div>
 
           {/* Content */}
