@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContentCard from "@/components/ContentCard";
 import CategoryFilter from "@/components/CategoryFilter";
+import SubcategoryTabs from "@/components/SubcategoryTabs";
 import { useContents, type ContentCategory } from "@/hooks/useContents";
 
 const categoryCards = [
@@ -18,11 +19,18 @@ const categoryCards = [
 
 const Home = () => {
   const [activeCategory, setActiveCategory] = useState<ContentCategory | "all">("all");
-  const { data: contents, isLoading } = useContents(
-    activeCategory === "all" ? undefined : activeCategory
-  );
+  const [activeTag, setActiveTag] = useState("all");
 
-  const featured = contents?.filter(c => c.featured) || [];
+  // Reset tag when category changes
+  const handleCategoryChange = (cat: ContentCategory | "all") => {
+    setActiveCategory(cat);
+    setActiveTag("all");
+  };
+
+  const { data: contents, isLoading } = useContents(
+    activeCategory === "all" ? undefined : activeCategory,
+    activeTag === "all" ? undefined : activeTag
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -88,12 +96,28 @@ const Home = () => {
         {/* All Content */}
         <section className="px-6 md:px-12 py-16 border-t border-border">
           <div className="max-w-5xl mx-auto">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="hero-title text-3xl md:text-4xl text-foreground">
                 Explorar
               </h2>
-              <CategoryFilter active={activeCategory} onChange={setActiveCategory} />
+              <CategoryFilter active={activeCategory} onChange={handleCategoryChange} />
             </div>
+
+            {/* Subcategory Tabs - shown when a specific category is selected */}
+            {activeCategory !== "all" && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mb-8"
+              >
+                <SubcategoryTabs
+                  category={activeCategory}
+                  active={activeTag}
+                  onChange={setActiveTag}
+                />
+              </motion.div>
+            )}
 
             {isLoading ? (
               <div className="grid gap-4 md:grid-cols-2">

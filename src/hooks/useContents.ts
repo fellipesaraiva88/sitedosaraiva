@@ -16,9 +16,9 @@ export interface Content {
   updated_at: string;
 }
 
-export const useContents = (category?: ContentCategory) => {
+export const useContents = (category?: ContentCategory, tag?: string) => {
   return useQuery({
-    queryKey: ["contents", category],
+    queryKey: ["contents", category, tag],
     queryFn: async () => {
       let query = supabase
         .from("contents")
@@ -29,6 +29,10 @@ export const useContents = (category?: ContentCategory) => {
 
       if (category) {
         query = query.eq("category", category);
+      }
+
+      if (tag) {
+        query = query.contains("tags", [tag]);
       }
 
       const { data, error } = await query;
