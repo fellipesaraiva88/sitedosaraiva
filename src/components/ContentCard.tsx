@@ -27,21 +27,21 @@ const ContentCard = ({ content, index }: ContentCardProps) => {
     >
       <Link
         to={`/content/${content.id}`}
-        className="group block p-6 border border-border rounded-lg hover:border-accent/40 transition-all duration-300 hover:bg-secondary/50"
+        className="group block p-6 rounded-xl border border-border card-hover"
       >
         <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground mono">
             <Icon className="w-3.5 h-3.5" />
             {config.label}
           </div>
           {content.featured && (
-            <span className="text-[10px] font-bold uppercase tracking-widest text-accent">
-              Destaque
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary glow-text">
+              ★ Destaque
             </span>
           )}
         </div>
 
-        <h3 className="font-display text-2xl md:text-3xl text-foreground uppercase leading-tight mb-2 group-hover:text-accent transition-colors duration-200">
+        <h3 className="text-xl md:text-2xl font-bold text-foreground leading-tight mb-2 group-hover:text-primary transition-colors duration-200">
           {content.title}
         </h3>
 
@@ -56,13 +56,13 @@ const ContentCard = ({ content, index }: ContentCardProps) => {
             {content.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-full border border-border text-muted-foreground"
+                className="mono text-[10px] font-medium px-2 py-0.5 rounded-md bg-secondary text-muted-foreground"
               >
                 {tag}
               </span>
             ))}
           </div>
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
+          <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
         </div>
       </Link>
     </motion.div>

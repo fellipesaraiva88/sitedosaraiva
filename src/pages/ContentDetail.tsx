@@ -8,10 +8,10 @@ import Footer from "@/components/Footer";
 import { useContent } from "@/hooks/useContents";
 
 const categoryConfig = {
-  prompt: { icon: Sparkles, label: "Prompt", color: "text-accent" },
-  tool: { icon: Wrench, label: "Ferramenta", color: "text-accent" },
-  analysis: { icon: BarChart3, label: "Análise", color: "text-accent" },
-  thought: { icon: Brain, label: "Pensamento", color: "text-accent" },
+  prompt: { icon: Sparkles, label: "Prompt" },
+  tool: { icon: Wrench, label: "Ferramenta" },
+  analysis: { icon: BarChart3, label: "Análise" },
+  thought: { icon: Brain, label: "Pensamento" },
 };
 
 const ContentDetail = () => {
@@ -24,9 +24,9 @@ const ContentDetail = () => {
         <Navigation />
         <main className="min-h-screen pt-32 px-6 md:px-12">
           <div className="max-w-3xl mx-auto">
-            <div className="h-12 w-48 bg-secondary animate-pulse rounded mb-8" />
-            <div className="h-24 bg-secondary animate-pulse rounded mb-8" />
-            <div className="h-64 bg-secondary animate-pulse rounded" />
+            <div className="h-8 w-32 bg-secondary animate-pulse rounded-lg mb-8" />
+            <div className="h-16 bg-secondary animate-pulse rounded-lg mb-6" />
+            <div className="h-64 bg-secondary animate-pulse rounded-lg" />
           </div>
         </main>
       </div>
@@ -39,7 +39,7 @@ const ContentDetail = () => {
         <Navigation />
         <main className="min-h-screen pt-32 px-6 md:px-12 text-center">
           <p className="text-muted-foreground">Conteúdo não encontrado.</p>
-          <Link to="/" className="text-accent underline mt-4 inline-block">Voltar</Link>
+          <Link to="/" className="text-primary underline mt-4 inline-block">Voltar</Link>
         </main>
       </div>
     );
@@ -54,18 +54,18 @@ const ContentDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <main className="min-h-screen py-32 px-6 md:px-12">
+      <main className="min-h-screen py-28 px-6 md:px-12">
         <div className="max-w-3xl mx-auto">
           {/* Back */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-12"
+            transition={{ duration: 0.3 }}
+            className="mb-10"
           >
             <Link
               to="/"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium uppercase tracking-wide"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
               Voltar
@@ -74,16 +74,16 @@ const ContentDetail = () => {
 
           {/* Category + Date */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-4 mb-6"
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-4 mb-5"
           >
-            <div className={`flex items-center gap-2 text-xs font-medium uppercase tracking-wider ${config.color}`}>
+            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-primary mono">
               <Icon className="w-4 h-4" />
               {config.label}
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground mono">
               <Calendar className="w-3 h-3" />
               {date}
             </div>
@@ -93,8 +93,8 @@ const ContentDetail = () => {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl text-foreground uppercase leading-none mb-6"
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-5"
           >
             {content.title}
           </motion.h1>
@@ -102,10 +102,10 @@ const ContentDetail = () => {
           {/* Description */}
           {content.description && (
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-2xl"
             >
               {content.description}
             </motion.p>
@@ -113,15 +113,15 @@ const ContentDetail = () => {
 
           {/* Tags */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.15 }}
-            className="flex gap-2 flex-wrap mb-12 pb-12 border-b border-border"
+            className="flex gap-2 flex-wrap mb-10 pb-10 border-b border-border"
           >
             {content.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-full border border-border text-muted-foreground"
+                className="mono text-[10px] font-medium px-3 py-1 rounded-md bg-secondary text-muted-foreground"
               >
                 {tag}
               </span>
@@ -133,8 +133,8 @@ const ContentDetail = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="prose prose-lg max-w-none prose-headings:font-display prose-headings:uppercase prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-accent prose-code:text-accent prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-table:text-sm prose-th:text-foreground prose-td:text-muted-foreground"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-code:text-primary prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-table:text-sm prose-th:text-foreground prose-td:text-muted-foreground prose-th:border-border prose-td:border-border"
             >
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{content.body}</ReactMarkdown>
             </motion.div>
