@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
-import { Search, Package, Filter, Download, Copy } from "lucide-react";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { Search, Package, Filter, Download, Copy, LayoutGrid, List, Rows3 } from "lucide-react";
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import TemplateCard from "@/components/TemplateCard";
+import TemplateCard, { type ViewMode } from "@/components/TemplateCard";
 import {
   templates,
   typeConfig,
@@ -31,6 +31,7 @@ const TemplatesDirectory = () => {
   const [search, setSearch] = useState("");
   const [activeType, setActiveType] = useState<TemplateType | "all">("all");
   const [activeCategory, setActiveCategory] = useState<TemplateCategory | "all">("all");
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
 
   const filtered = useMemo(() => {
     return templates.filter((t) => {
@@ -176,35 +177,71 @@ const TemplatesDirectory = () => {
             ))}
           </motion.div>
 
-          {/* Results count + copy all */}
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-xs text-muted-foreground mono">
-              {filtered.length} template{filtered.length !== 1 ? "s" : ""} encontrado{filtered.length !== 1 ? "s" : ""}
+          {/* Results count + view toggle + copy all */}
+          <div className="flex items-center justify-between mb-6 gap-3">
+            <p className="text-xs text-muted-foreground mono shrink-0">
+              {filtered.length} template{filtered.length !== 1 ? "s" : ""}
             </p>
+
+            {/* View mode toggle */}
+            <div className="flex items-center gap-1 p-1 rounded-lg bg-secondary border border-border">
+              {([
+                { mode: "grid" as ViewMode, icon: LayoutGrid, label: "Grid" },
+                { mode: "list" as ViewMode, icon: List, label: "Lista" },
+                { mode: "compact" as ViewMode, icon: Rows3, label: "Compacto" },
+              ]).map(({ mode, icon: Icon, label }) => (
+                <button
+                  key={mode}
+                  onClick={() => setViewMode(mode)}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all ${
+                    viewMode === mode
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  title={label}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">{label}</span>
+                </button>
+              ))}
+            </div>
+
             {filtered.length > 1 && (
               <button
                 onClick={copyAll}
-                className="inline-flex items-center gap-1.5 text-xs mono text-primary hover:text-primary/80 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs mono text-primary hover:text-primary/80 transition-colors shrink-0"
               >
                 <Copy className="w-3.5 h-3.5" />
-                Copiar comando com todos ({filtered.length})
+                <span className="hidden sm:inline">Copiar todos ({filtered.length})</span>
               </button>
             )}
           </div>
 
-          {/* Grid */}
-          {filtered.length > 0 ? (
-            <div className="grid gap-3 md:grid-cols-2">
-              {filtered.map((template, i) => (
-                <TemplateCard key={template.id} template={template} index={i} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20">
-              <Package className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">Nenhum template encontrado.</p>
-            </div>
-          )}
+          {/* Template cards */}
+          <LayoutGroup>
+            {filtered.length > 0 ? (
+              <div
+                className={
+                  viewMode === "grid"
+                    ? "grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+                    : viewMode === "list"
+                    ? "grid gap-3 md:grid-cols-2"
+                    : "flex flex-col gap-1.5"
+                }
+              >
+                <AnimatePresence mode="popLayout">
+                  {filtered.map((template, i) => (
+                    <TemplateCard key={template.id} template={template} index={i} viewMode={viewMode} />
+                  ))}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <Package className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+                <p className="text-muted-foreground">Nenhum template encontrado.</p>
+              </div>
+            )}
+          </LayoutGroup>
 
           {/* Combined command section */}
           {filtered.length > 0 && (
